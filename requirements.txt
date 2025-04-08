@@ -1,0 +1,9 @@
+streamlit==1.25.0
+plotly==5.18.0
+dash==2.14.0
+pyvis==0.3.2
+ipyvolume==0.6.1
+qiskit==0.44.0
+bokeh==3.3.0
+dash-ag-grid==2.0.0
+streamlit-agraph==0.1.0
