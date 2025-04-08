@@ -3,9 +3,9 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 
-st.set_page_config(page_title="NeuroConnect Dashboard", layout="wide")
+st.set_page_config(page_title="NeuroConnect Interactive Dashboard", layout="wide")
 
-# Encabezado y estilo
+# Custom styling
 st.markdown("""
 <style>
     .main {
@@ -16,46 +16,51 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("🧠 NeuroConnect: Comparativa de Tratamientos para el Autismo")
+st.title("🧠 NeuroConnect: Comparative Analysis of Autism Treatments")
 
-st.markdown("### Estado del Arte: ¿Por qué fallan los tratamientos actuales?")
+st.markdown("### Section 3: Why Current Treatments Fail")
 
-# Datos simulados para demostración
+# Simulated clinical outcome data
 data = {
-    "Tratamiento": ["ABA", "Risperidona", "EMT", "NeuroConnect"],
-    "Mejora en comunicación no verbal (%)": [25, 15, 40, 85],
-    "Reducción de crisis sensoriales (%)": [20, 18, 35, 82],
+    "Treatment": ["ABA", "Risperidone", "rTMS", "NeuroConnect"],
+    "Improved Non-verbal Communication (%)": [25, 15, 40, 85],
+    "Sensory Crisis Reduction (%)": [20, 18, 35, 82],
 }
 
 df = pd.DataFrame(data)
 
-# Crear gráfico interactivo
+# Create interactive grouped bar chart
 fig = go.Figure()
 fig.add_trace(go.Bar(
-    x=df["Tratamiento"],
-    y=df["Mejora en comunicación no verbal (%)"],
-    name="Comunicación no verbal",
-    text=df["Mejora en comunicación no verbal (%)"],
+    x=df["Treatment"],
+    y=df["Improved Non-verbal Communication (%)"],
+    name="Non-verbal Communication",
+    marker_color='rgb(55, 83, 109)',
+    text=df["Improved Non-verbal Communication (%)"],
     textposition='auto'
 ))
 fig.add_trace(go.Bar(
-    x=df["Tratamiento"],
-    y=df["Reducción de crisis sensoriales (%)"],
-    name="Crisis sensoriales",
-    text=df["Reducción de crisis sensoriales (%)"],
+    x=df["Treatment"],
+    y=df["Sensory Crisis Reduction (%)"],
+    name="Sensory Crisis Reduction",
+    marker_color='rgb(26, 118, 255)',
+    text=df["Sensory Crisis Reduction (%)"],
     textposition='auto'
 ))
 
 fig.update_layout(
     barmode='group',
-    title="Comparación de Eficacia de Tratamientos",
-    xaxis_title="Tratamiento",
-    yaxis_title="Mejora (%)",
+    title="Projected Clinical Impact: NeuroConnect vs Conventional Approaches",
+    xaxis_title="Treatment",
+    yaxis_title="Improvement (%)",
     template="plotly_dark",
-    legend=dict(x=0.8, y=1.2),
-    height=600
+    height=600,
+    legend=dict(x=0.7, y=1.15, orientation='h')
 )
 
 st.plotly_chart(fig, use_container_width=True)
 
-st.markdown("✅ NeuroConnect muestra una eficacia significativamente superior en ambas categorías analizadas, según simulaciones clínicas proyectadas.")
+st.markdown("""
+✅ **Insight**: Simulated clinical data suggests NeuroConnect significantly outperforms conventional methods in both communication and sensory regulation metrics.  
+It demonstrates the potential of a nano-enabled, AI-guided intervention targeting synaptic connectivity in severe autism spectrum conditions.
+""")
