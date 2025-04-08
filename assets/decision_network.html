@@ -2,34 +2,33 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Decision Network: Why Current Treatments Fail</title>
+  <title>Decision Tree - Autism Treatment Issues</title>
   <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
   <style>
     body {
-      background-color: #0f2027;
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
       margin: 0;
       padding: 0;
+      background-color: #f4f4f4;
+      font-family: 'Segoe UI', sans-serif;
     }
-
     h2 {
       text-align: center;
+      color: #000000;
       margin: 20px 0;
       font-size: 24px;
-      color: white;
     }
-
     #mynetwork {
       width: 100%;
-      height: 620px;
-      background: #0f2027;
-      border-radius: 10px;
+      height: 700px;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin: 0 auto;
     }
   </style>
 </head>
 <body>
-  <h2>🧠 Why Current Autism Treatments Often Fail</h2>
+  <h2>🧠 Decision Network: Why Current Autism Treatments Often Fail</h2>
   <div id="mynetwork"></div>
 
   <script type="text/javascript">
@@ -38,33 +37,33 @@
         id: 1,
         label: "Symptom:\nIrritability",
         shape: "ellipse",
-        color: "#FF4D6D",
-        font: { color: "white", size: 22 },
-        size: 50
+        color: "#fca5a5",
+        font: { color: "#000000", size: 20, face: "Segoe UI", multi: true },
+        size: 40
       },
       {
         id: 2,
-        label: "ABA:\nBehavioral Modification",
+        label: "ABA\n(Behavioral Therapy)",
         shape: "box",
-        color: "#FFBD44",
-        font: { color: "black", size: 20 },
-        size: 45
+        color: "#fde68a",
+        font: { color: "#000000", size: 18, face: "Segoe UI", multi: true },
+        size: 35
       },
       {
         id: 3,
-        label: "Risperidone:\nPharmacological Drug",
+        label: "Medication\n(Risperidone)",
         shape: "box",
-        color: "#FF7675",
-        font: { color: "white", size: 20 },
-        size: 45
+        color: "#fcd34d",
+        font: { color: "#000000", size: 18, face: "Segoe UI", multi: true },
+        size: 35
       },
       {
         id: 4,
-        label: "Outcome:\nTrauma & Dependence",
+        label: "Outcome:\nTrauma and Side Effects",
         shape: "ellipse",
-        color: "#D63031",
-        font: { color: "white", size: 22 },
-        size: 55
+        color: "#f87171",
+        font: { color: "#000000", size: 20, face: "Segoe UI", multi: true },
+        size: 45
       }
     ]);
 
@@ -72,38 +71,38 @@
       {
         from: 1,
         to: 2,
-        label: "Targets\nsurface behavior",
+        label: "Targets surface\nbehavior",
         arrows: "to",
-        font: { color: "white", size: 16, align: "top" },
-        color: "white",
+        font: { color: "#000000", size: 16, face: "Segoe UI", align: "horizontal" },
+        color: "#999999",
         width: 2
       },
       {
         from: 1,
         to: 3,
-        label: "Suppresses\nchemically",
+        label: "Suppresses symptoms\nchemically",
         arrows: "to",
-        font: { color: "white", size: 16, align: "top" },
-        color: "white",
+        font: { color: "#000000", size: 16, face: "Segoe UI", align: "horizontal" },
+        color: "#999999",
         width: 2
       },
       {
         from: 2,
         to: 4,
-        label: "Leads to\nemotional trauma",
+        label: "Psychological\nconsequences",
         arrows: "to",
-        font: { color: "white", size: 16, align: "top" },
-        color: "white",
-        width: 2
+        font: { color: "#000000", size: 16, face: "Segoe UI", align: "horizontal" },
+        color: "#666666",
+        width: 3
       },
       {
         from: 3,
         to: 4,
-        label: "Leads to\nside effects",
+        label: "Physical\nside effects",
         arrows: "to",
-        font: { color: "white", size: 16, align: "top" },
-        color: "white",
-        width: 2
+        font: { color: "#000000", size: 16, face: "Segoe UI", align: "horizontal" },
+        color: "#666666",
+        width: 3
       }
     ]);
 
@@ -119,24 +118,20 @@
         hierarchical: {
           direction: "UD",
           sortMethod: "directed",
-          nodeSpacing: 300,
-          levelSeparation: 180
+          levelSeparation: 200,
+          nodeSpacing: 300
         }
       },
       edges: {
-        smooth: {
-          type: "cubicBezier",
-          forceDirection: "vertical",
-          roundness: 0.4
-        },
+        smooth: true,
         arrows: {
-          to: { enabled: true, scaleFactor: 1 }
+          to: { enabled: true, scaleFactor: 1.1 }
         }
       },
       physics: false
     };
 
-    new vis.Network(container, data, options);
+    const network = new vis.Network(container, data, options);
   </script>
 </body>
 </html>
