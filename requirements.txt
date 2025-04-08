@@ -1,3 +1,2 @@
 streamlit==1.25.0
 plotly==5.18.0
-streamlit-agraph==0.1.0
