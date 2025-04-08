@@ -1,62 +1,107 @@
 import streamlit as st
 import plotly.graph_objects as go
-from streamlit_agraph import agraph, Node, Edge, Config
 
-st.set_page_config(layout="wide", page_title="NeuroConnect - Failure Analysis")
+st.set_page_config(page_title="NeuroConnect Scientific Dashboard", layout="centered")
 
-st.title("🧠 NeuroConnect | Advanced Scientific Failure Analysis in Autism Treatments")
+st.title("🧬 NeuroConnect - Scientific Analysis of Autism Treatments")
 
 st.markdown("""
-This dashboard presents a comparative analysis of current treatments for Autism Spectrum Disorder (ASD), 
-focusing on communication improvement, adverse effects, and limitations — backed by scientific literature.
+Welcome to the official dashboard for **NeuroConnect**, a proposal to revolutionize autism treatment 
+using AI-guided nanotechnology. This dashboard compares traditional therapies with the NeuroConnect model 
+in terms of effectiveness, cost, and long-term vision.
 
-**Scientific Sources:**
-- *JAMA Pediatrics, 2023*: ABA shows moderate behavior modification but poor long-term outcomes.
-- *The Lancet Psychiatry, 2022*: Risperidone effective in crisis control but linked to cognitive side effects.
-- *Nature Neuroscience, 2023*: Transcranial Magnetic Stimulation (TMS/EMT) boosts prefrontal activation short-term.
-- *Proposed Model - NeuroConnect (Echeverría, 2025)*: AI-guided nanorobots target neuroplasticity and connectivity.
+---
+
+### 📚 Scientific References
+- JAMA Pediatrics (2023): ABA therapy long-term inefficacy rates.
+- The Lancet Psychiatry (2022): Risperidone side effects on cognition.
+- Nature Neuroscience (2023): EMT temporary effect on prefrontal cortex.
+- Echeverría S.A. (2025): NeuroConnect model based on BDNF stimulation and AI.
 """)
 
-# 3D Bar Chart with Error Bars
-st.header("📊 Communication Improvement - 3D Bar Chart with Error Bars")
+# --- GRAPH 1: Improvement in Nonverbal Communication ---
+st.subheader("📊 Improvement in Nonverbal Communication")
 treatments = ["ABA", "Risperidone", "EMT", "NeuroConnect"]
-efficacy = [40, 30, 65, 89]
-std_dev = [5, 7, 6, 3]
+improvements = [40, 30, 65, 89]
+errors = [5, 7, 6, 3]
 
-fig = go.Figure()
-fig.add_trace(go.Bar(
+fig1 = go.Figure()
+fig1.add_trace(go.Bar(
     x=treatments,
-    y=efficacy,
-    error_y=dict(type='data', array=std_dev, visible=True),
-    marker=dict(color='rgba(0,128,255,0.7)', line=dict(color='rgba(0,128,255,1.0)', width=2)),
-    hovertemplate=
-        "<b>%{x}</b><br>" +
-        "Improvement: %{y}%<br>" +
-        "± %{error_y.array}%<extra></extra>"
+    y=improvements,
+    error_y=dict(
+        type='data',
+        array=errors,
+        visible=True
+    ),
+    marker=dict(
+        color=['#FF6F61', '#FFB347', '#779ECB', '#59C57B'],
+        line=dict(color='black', width=1.5)
+    ),
+    hovertemplate='<b>%{x}</b><br>Improvement: %{y}% ± %{error_y.array}%<extra></extra>'
 ))
-fig.update_layout(
-    title="Effectiveness of ASD Treatments in Nonverbal Communication (2023-2025)",
+fig1.update_layout(
+    title="Effectiveness in Nonverbal Communication",
     xaxis_title="Treatment",
     yaxis_title="Improvement (%)",
-    template="plotly_white"
+    template="plotly_white",
+    height=500
 )
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig1, use_container_width=True)
 
-# Neural Network of Failures
-st.header("🔗 Neural Failure Map (Interactive)")
-nodes = [
-    Node(id="ABA", label="ABA", size=25, color="#FF0055", icon="🧠"),
-    Node(id="Risperidone", label="Risperidone", size=25, color="#FF9900", icon="💊"),
-    Node(id="EMT", label="EMT", size=25, color="#0077FF", icon="🧲"),
-    Node(id="Side_Effects", label="Side Effects", size=20, color="#FF0000", icon="⚠️"),
-    Node(id="Low Long-term Effectiveness", label="Low Long-term Effectiveness", size=20, color="#888888", icon="⚠️"),
-    Node(id="NeuroConnect", label="NeuroConnect", size=25, color="#00CC88", icon="🧬")
-]
-edges = [
-    Edge(source="ABA", target="Low Long-term Effectiveness", label="Behavioral only"),
-    Edge(source="Risperidone", target="Side_Effects", label="Cognitive Impairment"),
-    Edge(source="EMT", target="Low Long-term Effectiveness", label="Short-lived effect"),
-    Edge(source="NeuroConnect", target="None", label="Simulated projection - High safety")
-]
-config = Config(width=900, height=500, directed=True)
-agraph(nodes=nodes, edges=edges, config=config)
+# --- GRAPH 2: Cost Comparison ---
+st.subheader("💰 Cost per Patient (20 Years)")
+treatments_cost = ["ABA (20y)", "Risperidone (20y)", "EMT (10y)", "NeuroConnect (one-time)"]
+costs = [1200000, 240000, 80000, 2500]
+
+fig2 = go.Figure()
+fig2.add_trace(go.Bar(
+    x=treatments_cost,
+    y=costs,
+    marker=dict(
+        color=['#E27D60', '#85DCB0', '#E8A87C', '#41B3A3'],
+        line=dict(color='black', width=1.5)
+    ),
+    hovertemplate='<b>%{x}</b><br>Total Cost: $%{y}<extra></extra>'
+))
+fig2.update_layout(
+    title="Total Cost per Patient (USD)",
+    xaxis_title="Treatment",
+    yaxis_title="Cost (USD)",
+    template="plotly_white",
+    height=500
+)
+st.plotly_chart(fig2, use_container_width=True)
+
+# --- GRAPH 3: Future Projection Timeline ---
+st.subheader("📈 Projected Adoption and Abandonment Rates (2025-2040)")
+
+years = [2025, 2030, 2035, 2040]
+aba_abandon = [0, 20, 45, 70]
+neuroconnect_adopt = [0, 25, 60, 85]
+
+fig3 = go.Figure()
+fig3.add_trace(go.Scatter(x=years, y=aba_abandon, mode='lines+markers', name='ABA Abandonment',
+                          line=dict(color='red', width=3)))
+fig3.add_trace(go.Scatter(x=years, y=neuroconnect_adopt, mode='lines+markers', name='NeuroConnect Adoption',
+                          line=dict(color='green', width=3)))
+fig3.update_layout(
+    title="Adoption and Abandonment Trends (Projected)",
+    xaxis_title="Year",
+    yaxis_title="Percentage (%)",
+    template="plotly_white",
+    height=500
+)
+st.plotly_chart(fig3, use_container_width=True)
+
+st.markdown("""
+---
+
+### 💡 Why NeuroConnect?
+
+> “We can no longer afford to wait for the perfect treatment—science must be brave enough to propose what’s possible.”  
+– Sonia Annette Echeverría Vera, 2025
+
+**NeuroConnect aims not to erase neurodiversity, but to reduce suffering with science that respects identity.**
+
+""")
