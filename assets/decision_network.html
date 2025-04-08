@@ -2,68 +2,68 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>NeuroConnect | Why Current Therapies Fail</title>
+  <title>Decision Network: Why Current Treatments Fail</title>
   <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
   <style>
     body {
-      margin: 0;
       background-color: #0f2027;
       font-family: 'Segoe UI', sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
     }
 
     h2 {
       text-align: center;
-      color: #ffffff;
-      font-size: 26px;
-      margin-top: 25px;
+      margin: 20px 0;
+      font-size: 24px;
+      color: white;
     }
 
     #mynetwork {
       width: 100%;
-      height: 700px;
-      margin: 30px auto;
-      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+      height: 620px;
+      background: #0f2027;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <h2>🧠 Decision Map: Why Current Autism Therapies Often Fail</h2>
+  <h2>🧠 Why Current Autism Treatments Often Fail</h2>
   <div id="mynetwork"></div>
 
   <script type="text/javascript">
     const nodes = new vis.DataSet([
       {
         id: 1,
-        label: "🧩 Symptom:\nIrritability",
+        label: "Symptom:\nIrritability",
         shape: "ellipse",
         color: "#FF4D6D",
-        font: { color: "#FFFFFF", size: 22, face: "Segoe UI", multi: true },
+        font: { color: "white", size: 22 },
         size: 50
       },
       {
         id: 2,
-        label: "🧠 ABA\nBehavioral Modification",
+        label: "ABA:\nBehavioral Modification",
         shape: "box",
         color: "#FFBD44",
-        font: { color: "#000000", size: 20, face: "Segoe UI", multi: true },
-        size: 40
+        font: { color: "black", size: 20 },
+        size: 45
       },
       {
         id: 3,
-        label: "💊 Risperidone\nPharmacological Sedation",
+        label: "Risperidone:\nPharmacological Drug",
         shape: "box",
         color: "#FF7675",
-        font: { color: "#FFFFFF", size: 20, face: "Segoe UI", multi: true },
-        size: 40
+        font: { color: "white", size: 20 },
+        size: 45
       },
       {
         id: 4,
-        label: "⚠️ Outcome:\nCognitive & Emotional Trauma",
+        label: "Outcome:\nTrauma & Dependence",
         shape: "ellipse",
         color: "#D63031",
-        font: { color: "#FFFFFF", size: 22, face: "Segoe UI", multi: true },
+        font: { color: "white", size: 22 },
         size: 55
       }
     ]);
@@ -72,38 +72,38 @@
       {
         from: 1,
         to: 2,
-        label: "Targets surface behavior",
+        label: "Targets\nsurface behavior",
         arrows: "to",
-        font: { color: "#ffffff", size: 16, face: "Segoe UI" },
-        color: "#ffffff",
+        font: { color: "white", size: 16, align: "top" },
+        color: "white",
         width: 2
       },
       {
         from: 1,
         to: 3,
-        label: "Suppresses symptoms chemically",
+        label: "Suppresses\nchemically",
         arrows: "to",
-        font: { color: "#ffffff", size: 16, face: "Segoe UI" },
-        color: "#ffffff",
+        font: { color: "white", size: 16, align: "top" },
+        color: "white",
         width: 2
       },
       {
         from: 2,
         to: 4,
-        label: "Leads to masking & anxiety",
+        label: "Leads to\nemotional trauma",
         arrows: "to",
-        font: { color: "#ffffff", size: 16, face: "Segoe UI" },
-        color: "#ffffff",
-        width: 3
+        font: { color: "white", size: 16, align: "top" },
+        color: "white",
+        width: 2
       },
       {
         from: 3,
         to: 4,
-        label: "Causes dependency & side effects",
+        label: "Leads to\nside effects",
         arrows: "to",
-        font: { color: "#ffffff", size: 16, face: "Segoe UI" },
-        color: "#ffffff",
-        width: 3
+        font: { color: "white", size: 16, align: "top" },
+        color: "white",
+        width: 2
       }
     ]);
 
@@ -120,12 +120,18 @@
           direction: "UD",
           sortMethod: "directed",
           nodeSpacing: 300,
-          levelSeparation: 200
+          levelSeparation: 180
         }
       },
       edges: {
-        smooth: true,
-        arrows: { to: { enabled: true, scaleFactor: 1.1 } }
+        smooth: {
+          type: "cubicBezier",
+          forceDirection: "vertical",
+          roundness: 0.4
+        },
+        arrows: {
+          to: { enabled: true, scaleFactor: 1 }
+        }
       },
       physics: false
     };
