@@ -2,44 +2,84 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Decision Tree Network</title>
+  <title>Decision Tree - Why Current Autism Therapies Fail</title>
   <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
   <style>
+    body {
+      background-color: #0f2027;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    h2 {
+      text-align: center;
+      margin: 10px;
+      font-size: 1.5em;
+      color: #f9f9f9;
+    }
     #mynetwork {
       width: 100%;
       height: 600px;
-      background-color: #0f2027;
-      border: 1px solid lightgray;
+      border: 2px solid #555;
+      border-radius: 12px;
+      box-shadow: 0px 0px 12px rgba(255,255,255,0.1);
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     }
   </style>
 </head>
 <body>
+  <h2>🧠 Decision Network: Why Current Autism Treatments Often Fail</h2>
   <div id="mynetwork"></div>
+
   <script type="text/javascript">
-    var nodes = new vis.DataSet([
-      {id: 1, label: "Symptom: Irritability", color: "#FF0055", font: {color: "white"}, size: 30},
-      {id: 2, label: "ABA: Behavioral Modification", color: "#FFAA00", font: {color: "black"}, size: 25},
-      {id: 3, label: "Drugs: Risperidone", color: "#FF5555", font: {color: "white"}, size: 25},
-      {id: 4, label: "Outcome: Accumulated Trauma", color: "#FF0000", font: {color: "white"}, size: 40}
+    const nodes = new vis.DataSet([
+      { id: 1, label: "Symptom:\nIrritability", color: "#ff4d6d", shape: "ellipse", font: { color: "white", size: 16 }, size: 40 },
+      { id: 2, label: "ABA:\nBehavioral Modification", color: "#ffa600", shape: "box", font: { color: "black", size: 14 }, size: 30 },
+      { id: 3, label: "Risperidone:\nPharmaceutical", color: "#ff7675", shape: "box", font: { color: "white", size: 14 }, size: 30 },
+      { id: 4, label: "Outcome:\nAccumulated Trauma", color: "#d63031", shape: "ellipse", font: { color: "white", size: 16 }, size: 45 }
     ]);
 
-    var edges = new vis.DataSet([
-      {from: 1, to: 2, label: "Current Approach", width: 3, color: "#CCCCCC"},
-      {from: 1, to: 3, label: "Current Approach", width: 3, color: "#CCCCCC"},
-      {from: 2, to: 4, width: 5},
-      {from: 3, to: 4, width: 5}
+    const edges = new vis.DataSet([
+      { from: 1, to: 2, label: "Symptom-based", color: { color: "#ffffff" }, arrows: "to", font: { color: "white" }, width: 2 },
+      { from: 1, to: 3, label: "Symptom-based", color: { color: "#ffffff" }, arrows: "to", font: { color: "white" }, width: 2 },
+      { from: 2, to: 4, label: "Psychological side effects", color: "#ffffff", arrows: "to", width: 3 },
+      { from: 3, to: 4, label: "Physical side effects", color: "#ffffff", arrows: "to", width: 3 }
     ]);
 
-    var container = document.getElementById('mynetwork');
-    var data = {nodes: nodes, edges: edges};
-    var options = {
-      nodes: {borderWidth:2, shadow:true},
-      edges: {arrows: "to", shadow:true, smooth: true},
-      layout: {hierarchical: false},
-      physics: {enabled: true, stabilization: {iterations: 200}}
+    const container = document.getElementById('mynetwork');
+
+    const data = {
+      nodes: nodes,
+      edges: edges
     };
 
-    var network = new vis.Network(container, data, options);
+    const options = {
+      nodes: {
+        shape: "box",
+        borderWidth: 2,
+        shadow: true
+      },
+      edges: {
+        smooth: {
+          type: "cubicBezier",
+          forceDirection: "horizontal",
+          roundness: 0.5
+        },
+        arrows: { to: { enabled: true, scaleFactor: 1 } }
+      },
+      layout: {
+        hierarchical: {
+          direction: "UD",
+          sortMethod: "directed"
+        }
+      },
+      physics: {
+        enabled: false
+      }
+    };
+
+    new vis.Network(container, data, options);
   </script>
 </body>
 </html>
