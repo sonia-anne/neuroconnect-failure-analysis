@@ -2,52 +2,113 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Decision Tree - Why Current Autism Therapies Fail</title>
+  <title>NeuroConnect | Decision Network</title>
   <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
   <style>
     body {
-      background-color: #0f2027;
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
       margin: 0;
       padding: 0;
+      background-color: #0f2027;
+      font-family: 'Segoe UI', sans-serif;
     }
+
     h2 {
       text-align: center;
-      margin: 10px;
-      font-size: 1.5em;
-      color: #f9f9f9;
+      color: #ffffff;
+      margin-top: 20px;
+      font-size: 24px;
     }
+
     #mynetwork {
       width: 100%;
-      height: 600px;
-      border: 2px solid #555;
-      border-radius: 12px;
-      box-shadow: 0px 0px 12px rgba(255,255,255,0.1);
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      height: 620px;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      margin: 20px auto;
     }
   </style>
 </head>
 <body>
-  <h2>🧠 Decision Network: Why Current Autism Treatments Often Fail</h2>
+  <h2>🧠 Decision Network: Why Current Autism Therapies Often Fail</h2>
   <div id="mynetwork"></div>
 
   <script type="text/javascript">
     const nodes = new vis.DataSet([
-      { id: 1, label: "Symptom:\nIrritability", color: "#ff4d6d", shape: "ellipse", font: { color: "white", size: 16 }, size: 40 },
-      { id: 2, label: "ABA:\nBehavioral Modification", color: "#ffa600", shape: "box", font: { color: "black", size: 14 }, size: 30 },
-      { id: 3, label: "Risperidone:\nPharmaceutical", color: "#ff7675", shape: "box", font: { color: "white", size: 14 }, size: 30 },
-      { id: 4, label: "Outcome:\nAccumulated Trauma", color: "#d63031", shape: "ellipse", font: { color: "white", size: 16 }, size: 45 }
+      {
+        id: 1,
+        label: "🧩 Symptom:\nIrritability",
+        shape: "ellipse",
+        color: "#FF4D6D",
+        font: { color: "#fff", size: 20, face: "Segoe UI", multi: true },
+        size: 50
+      },
+      {
+        id: 2,
+        label: "🧠 ABA\nBehavioral Modification",
+        shape: "box",
+        color: "#FFBD44",
+        font: { color: "#000", size: 18, face: "Segoe UI", multi: true },
+        size: 40
+      },
+      {
+        id: 3,
+        label: "💊 Risperidone\nPharmaceutical Drug",
+        shape: "box",
+        color: "#FF7675",
+        font: { color: "#fff", size: 18, face: "Segoe UI", multi: true },
+        size: 40
+      },
+      {
+        id: 4,
+        label: "⚠️ Outcome:\nAccumulated Trauma",
+        shape: "ellipse",
+        color: "#D63031",
+        font: { color: "#fff", size: 20, face: "Segoe UI", multi: true },
+        size: 55
+      }
     ]);
 
     const edges = new vis.DataSet([
-      { from: 1, to: 2, label: "Symptom-based", color: { color: "#ffffff" }, arrows: "to", font: { color: "white" }, width: 2 },
-      { from: 1, to: 3, label: "Symptom-based", color: { color: "#ffffff" }, arrows: "to", font: { color: "white" }, width: 2 },
-      { from: 2, to: 4, label: "Psychological side effects", color: "#ffffff", arrows: "to", width: 3 },
-      { from: 3, to: 4, label: "Physical side effects", color: "#ffffff", arrows: "to", width: 3 }
+      {
+        from: 1,
+        to: 2,
+        label: "Targets symptom\nnot cause",
+        arrows: "to",
+        font: { color: "#ffffff", size: 14, align: "middle" },
+        color: "#ffffff",
+        width: 2
+      },
+      {
+        from: 1,
+        to: 3,
+        label: "Suppresses behavior\nvia sedation",
+        arrows: "to",
+        font: { color: "#ffffff", size: 14, align: "middle" },
+        color: "#ffffff",
+        width: 2
+      },
+      {
+        from: 2,
+        to: 4,
+        label: "Psych trauma\n& masking",
+        arrows: "to",
+        font: { color: "#ffffff", size: 14 },
+        color: "#ffffff",
+        width: 3
+      },
+      {
+        from: 3,
+        to: 4,
+        label: "Physical side effects\n& dependency",
+        arrows: "to",
+        font: { color: "#ffffff", size: 14 },
+        color: "#ffffff",
+        width: 3
+      }
     ]);
 
-    const container = document.getElementById('mynetwork');
+    const container = document.getElementById("mynetwork");
 
     const data = {
       nodes: nodes,
@@ -55,31 +116,24 @@
     };
 
     const options = {
-      nodes: {
-        shape: "box",
-        borderWidth: 2,
-        shadow: true
-      },
-      edges: {
-        smooth: {
-          type: "cubicBezier",
-          forceDirection: "horizontal",
-          roundness: 0.5
-        },
-        arrows: { to: { enabled: true, scaleFactor: 1 } }
-      },
       layout: {
         hierarchical: {
           direction: "UD",
-          sortMethod: "directed"
+          sortMethod: "directed",
+          levelSeparation: 150,
+          nodeSpacing: 200
         }
       },
-      physics: {
-        enabled: false
-      }
+      edges: {
+        smooth: true,
+        arrows: {
+          to: { enabled: true, scaleFactor: 1 }
+        }
+      },
+      physics: false
     };
 
-    new vis.Network(container, data, options);
+    const network = new vis.Network(container, data, options);
   </script>
 </body>
 </html>
